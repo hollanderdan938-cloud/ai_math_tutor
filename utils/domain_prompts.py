@@ -13,6 +13,9 @@ For each problem:
 6. Format mathematical expressions and equations in LaTeX when appropriate
 7. Include a final answer clearly marked
 8. If there are multiple approaches, mention them and explain why you chose your approach
+9. Be concise. Show only the steps needed to reach the answer. No preamble, no restating the problem, no closing summary. 
+10. Number each step and keep it to one or two lines. 
+11. Use LaTeX between $ delimiters for math.
 """,
     
     "calculus": """
