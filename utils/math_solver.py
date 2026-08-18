@@ -20,6 +20,15 @@ try:
 except Exception as e:
     logger.error(f"Failed to initialize Groq client: {str(e)}")
 
+SOLVER_MODEL = os.getenv("SOLVER_MODEL", "openai/gpt-oss-120b")
+
+STYLE = (
+    "Be concise. Show only the steps needed to reach the answer. "
+    "No preamble, no restating the problem, no closing summary. "
+    "Number each step and keep it to one or two lines. "
+    "Use LaTeX between $ delimiters for math."
+)
+
 def detect_math_domain(problem_text):
     """Simple heuristic to detect math domain based on keywords"""
     problem_text = problem_text.lower()
