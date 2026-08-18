@@ -1,4 +1,7 @@
 # math_solver.py
+import os
+SOLVER_MODEL = os.getenv("SOLVER_MODEL", "openai/gpt-oss-120b")
+
 from groq import Groq
 import os
 import logging
@@ -19,15 +22,6 @@ try:
     client = Groq(api_key=GROQ_API_KEY)
 except Exception as e:
     logger.error(f"Failed to initialize Groq client: {str(e)}")
-
-SOLVER_MODEL = os.getenv("SOLVER_MODEL", "openai/gpt-oss-120b")
-
-STYLE = (
-    "Be concise. Show only the steps needed to reach the answer. "
-    "No preamble, no restating the problem, no closing summary. "
-    "Number each step and keep it to one or two lines. "
-    "Use LaTeX between $ delimiters for math."
-)
 
 def detect_math_domain(problem_text):
     """Simple heuristic to detect math domain based on keywords"""
@@ -62,7 +56,7 @@ def solve_math_problem(problem_text, domain=None):
         
         # Call Groq API with Claude model (can also use llama3-70b-8192)
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",  # You can try other models available on Groq
+            model=SOLVER_MODEL,  # You can try other models available on Groq
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": formatted_problem}
@@ -93,7 +87,7 @@ def get_similar_problems(problem_text, domain=None, n=3):
             f"Original problem:\n{problem_text}"
         )
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=SOLVER_MODEL,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
