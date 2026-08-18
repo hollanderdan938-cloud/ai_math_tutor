@@ -1,6 +1,12 @@
 # math_solver.py
 import os
 SOLVER_MODEL = os.getenv("SOLVER_MODEL", "openai/gpt-oss-120b")
+STYLE = (
+    "Be concise. Show only the steps needed to reach the answer. "
+    "No preamble, no restating the problem, no closing summary. "
+    "Number each step and keep it to one or two lines. "
+    "Use LaTeX between $ delimiters for math."
+)
 
 from groq import Groq
 import os
